@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock title %} | BOOKS</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'table.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'image_center.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_three_buttons.css' %}">
+</head>
+<body style="background-color: darkgrey">
+{% include 'books/nav_bar.html' %}
+<br>
+
+{% block heading %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+<br>
+<img src="{% static 'elibrary.jpg' %}" alt="Books" class="center">
+<br><br>
+<footer>
+    <p style="text-align: center; font-size: small">STX Next - recruitment application</p>
+    <p style="text-align: center; font-size: small">© 2022 M.Złakowski</p>
+</footer>
+<br>
+<br>
+</body>
+</html>

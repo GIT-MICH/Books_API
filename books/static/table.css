@@ -1,0 +1,55 @@
+table.orangeTable {
+  font-family: Georgia, serif;
+  width: 95%;
+  text-align: center;
+  padding-left: 5%;
+}
+table.orangeTable td, table.orangeTable th {
+  border: 1px solid darkorange;
+  padding: 3px 2px;
+}
+table.orangeTable tbody td {
+  border: 1px solid darkorange;
+  font-size: 13px;
+  background: #FFFFFF;
+}
+table.orangeTable thead {
+  background: darkorange;
+  border-bottom: 0px solid #444444;
+
+}
+table.orangeTable thead th {
+  font-size: 19px;
+  font-weight: bold;
+  color: #F0F0F0;
+  background: darkorange;
+  text-align: left;
+  border-left: 2px solid darkorange;
+}
+table.orangeTable thead th:first-child {
+  border-left: none;
+}
+table.orangeTable tfoot {
+  font-size: 13px;
+  font-weight: bold;
+  color: #F0F0F0;
+  background: darkorange;
+  border-top: 1px solid darkorange;
+}
+table.orangeTable tfoot td {
+  font-size: 13px;
+}
+table.orangeTable tfoot .links {
+  text-align: right;
+}
+table.orangeTable tfoot .links a{
+  display: inline-block;
+  background: #FFFFFF;
+  color: darkorange;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.floated {
+   float:left;
+   margin-right:5px;
+}

@@ -1,0 +1,76 @@
+{% extends 'books/base_with_navbar.html' %}
+
+{% block heading %}
+<h3>ALL AVAILABLE BOOKS:</h3>
+{% endblock %}
+
+{% block content %}
+<table class="orangeTable">
+    <thead>
+        <tr>
+            <td style="background: #cccccc; width:20%">Title</td>
+            <td style="background: #cccccc; width:15%">Author</td>
+            <td style="background: #cccccc; width:10%">Publicate</td>
+            <td style="background: #cccccc; width:10%">Nr. of pages</td>
+            <td style="background: #cccccc; width:10%">ISBN</td>
+            <td style="background: #cccccc; width:10%">Language</td>
+            <td style="background: #cccccc; width:10%">Cover</td>
+            <td style="background: #cccccc; width:15%"></td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td><strong>{{ book.title }}</strong></td>
+            <td><strong>{{ book.author }}</strong></td>
+            <td>{{ book.publicate_year }}</td>
+            <td>{{ book.number_of_pages }}</td>
+            <td>{{ book.isbn_number }}</td>
+            <td>{{ book.publicate_language }}</td>
+            {% if book.image %}
+                <td><img alt="image" src="{{ book.image.url }}"></td>
+            {% else %}
+                <td> |Sorry, no picture| </td>
+            {% endif %}
+            <td>
+                <br>
+                <a class="button-one" title="Modify book" href="{{ book.modify_book_url }}">modify</a>
+                <br><br>
+                <a class="button-two" title="Delete book" href="{{ book.delete_book_url }}">delete</a>
+                <br><br>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+    <tfoot>
+    <tr>
+        <th colspan="8" style="background-color: #DDDDDD; color: darkorange">
+            <!--Pagination-->
+        <div>
+            <div>
+                <span>
+                {% if books.has_previous %}
+                 <a href="?page={{ books.previous_page_number }}" style="color: black">< previous </a>
+                {% endif %}
+                <span><big>
+                    {% for i in books.paginator.page_range %}
+                        {% if books.number == i %}
+                        <label class="active"><span><big>  {{ i }}  </big><span class="sr-only"></span></span></label>
+                        {% else %}
+                            <label><a href="?page={{ i }}" style="color: black">{{ i }}</a></label>
+                        {% endif %}
+                    {% endfor %}
+                </big></span>
+                {% if books.has_next %}
+                    <a href="?page={{ books.next_page_number }}" style="color: black"> next ></a>
+                {% endif %}
+                </span>
+            </div>
+        </div>
+            <!--end of Pagination-->
+        </th>
+    </tr>
+    </tfoot>
+</table>
+{% endblock %}

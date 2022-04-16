@@ -1,0 +1,20 @@
+<!-- First navbar -->
+<div class="topnav">
+    <!-- Centered link -->
+    <div class="topnav-centered">
+        <p>
+            <a href="{% url 'books-all' %}" class="active"> || ALL BOOKS ||</a>
+        </p>
+    </div>
+
+    <!-- Left-aligned links (default) -->
+    <a href="{% url 'books-search' %}">| SEARCH |</a>
+    <a href="">| IMPORT |</a>
+
+    <!-- Right-aligned links -->
+    <div class="topnav-right">
+        <a href="{% url 'book-add' %}"> | ADD BOOK |</a>
+        <a href=""> | REST API |</a>
+    </div>
+</div>
+<!-- End first navbar -->
