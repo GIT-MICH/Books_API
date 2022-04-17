@@ -1,0 +1,14 @@
+{% extends 'books/base_with_navbar.html' %}
+{% block heading %}
+    <h3>IMPORT BOOK FROM GOOGLEAPIS.COM:</h3>
+{% endblock %}
+
+{% block content %}
+    <form class="form-horizontal form_middle" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+            <input style="background-color: darkorange; font-size: 16px" type="submit" value="IMPORT">
+        </div>
+    </form>
+{% endblock %}

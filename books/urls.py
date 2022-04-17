@@ -5,6 +5,7 @@ from books.views import (AllBooksView,
                          DeleteBookView,
                          ModifyBookView,
                          SearchBooksView,
+                         ImportBooksFromApiView,
                          )
 
 urlpatterns = [
@@ -13,6 +14,7 @@ urlpatterns = [
     path('delete/<int:id>/', DeleteBookView.as_view(), name='book-delete'),
     path('modify/<int:id>/', ModifyBookView.as_view(), name='book-modify'),
     path('search/', SearchBooksView.as_view(), name='books-search'),
-    path('book/<int:pk>/', BookListView.as_view(), name='book'),
+    path('import/', ImportBooksFromApiView.as_view(), name='books-import'),
+    path('book/<int:pk>/', BookListView.as_view(), name='book-api'),
 
 ]

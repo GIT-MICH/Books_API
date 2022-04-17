@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
-from books.forms import BookModelForm
+from books.forms import BookForm, BookModifyForm, ImportBooksFromApiForm
 from books.models import Book
 from books.serializers import BookSerializer
 from rest_framework import generics
@@ -21,17 +21,9 @@ def get_books_from_googleapi(request, url='https://www.googleapis.com/books/v1/v
         book = item.get('volumeInfo')
         title = book.get('title', '-')
         authors = book.get('authors', ['no data'])[0]
-        # if authors:
-        #     author = authors[0]
         publicate_year = book.get('publishedDate')[:4]
         isbns = book.get('industryIdentifiers')
         isbn = isbns[0]['identifier']
-        # isbn = None
-        # for isbn in isbns:
-        #     if isbn['type'] == 'ISBN10':
-        #         isbn = isbn['identifier']
-        #     elif isbn['type'] == 'ISBN13':
-        #         isbn = isbn['identifier']
         number_of_pages = book.get('pageCount')
         publicate_language = book.get('language')
         image = book.get('imageLinks')
@@ -40,12 +32,12 @@ def get_books_from_googleapi(request, url='https://www.googleapis.com/books/v1/v
         try:
             book = get_object_or_404(
                 Book, title=title, author=authors, publicate_year=publicate_year,
-                number_of_pages=number_of_pages, image=image, isbn_number=isbn,
-                publicate_language=publicate_language)
+                number_of_pages=number_of_pages, isbn_number=isbn,
+                publicate_language=publicate_language, image=image)
         except Http404:
             book = Book.objects.create(title=title, author=authors, publicate_year=publicate_year,
-                                       number_of_pages=number_of_pages, image=image, isbn_number=isbn,
-                                       publicate_language=publicate_language)
+                                       number_of_pages=number_of_pages, isbn_number=isbn,
+                                       publicate_language=publicate_language, image=image)
     return redirect('books-all')
 
 
@@ -100,13 +92,20 @@ class SearchBooksView(View):
 
 class AddBookView(View):
     def get(self, request):
-        form = BookModelForm()
+        form = BookForm()
         return render(request, 'books/add_book_form.html', {'form': form})
 
     def post(self, request):
-        form = BookModelForm(request.POST)
+        form = BookForm(request.POST, request.FILES)
         if form.is_valid():
-            book = form.save()
+            title = form.cleaned_data.get('title')
+            author = form.cleaned_data.get('author')
+            publicate_year = form.cleaned_data.get('publicate_year')
+            number_of_pages = form.cleaned_data.get('number_of_pages')
+            isbn_number = form.cleaned_data.get('isbn_number')
+            publicate_language = form.cleaned_data.get('publicate_language')
+            image = form.cleaned_data.get('image')
+            Book.objects.create(**form.cleaned_data)
             return redirect('books-all')
         return render(request, 'books/add_book_form.html', {'form': form})
 
@@ -121,16 +120,51 @@ class DeleteBookView(View):
 class ModifyBookView(View):
     def get(self, request, id):
         book = Book.objects.get(id=id)
-        form = BookModelForm(instance=book)
+        form = BookModifyForm(instance=book)
         return render(request, 'books/modify_form.html', {'form': form})
 
     def post(self, request, id):
         book = Book.objects.get(id=id)
-        form = BookModelForm(request.POST, instance=book)
+        form = BookModifyForm(request.POST, instance=book)
         if form.is_valid():
             book = form.save()
             return redirect('books-all')
         return render(request, 'books/modify_form.html', {'form': form})
+
+
+class ImportBooksFromApiView(View):
+    def get(self, request):
+        form = ImportBooksFromApiForm()
+        return render(request, 'books/import_form.html', {'form': form})
+
+    def post(self, request):
+        url = 'https://www.googleapis.com/books/v1/volumes?q='
+        form = ImportBooksFromApiForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            author = form.cleaned_data.get('author')
+            publisher = form.cleaned_data.get('publisher')
+            subject = form.cleaned_data.get('subject')
+            isbn = form.cleaned_data.get('isbn')
+            lccn = form.cleaned_data.get('lccn')
+            oclc = form.cleaned_data.get('oclc')
+            if title:
+                url += f'+intitle:{title}'
+            if author:
+                url += f'+inauthor:{author}'
+            if publisher:
+                url += f'+inpublisher:{publisher}'
+            if subject:
+                url += f'+subject:{subject}'
+            if isbn:
+                url += f'+isbn:{isbn}'
+            if lccn:
+                url += f'+lccn:{lccn}'
+            if oclc:
+                url += f'+intitle:{oclc}'
+            get_books_from_googleapi(request, url=url)
+            return redirect('books-all')
+        return render(request, 'books/import_form.html', {'form': form})
 
 
 class BookListView(generics.ListCreateAPIView):

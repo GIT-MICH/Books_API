@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-    <form class="form-horizontal form_middle" enctype="multipart/form-data" method="post">
+    <form class="form-horizontal form_middle" enctype='multipart/form-data' method="POST">
         {% csrf_token %}
         <div>
             {{ form.as_p }}
