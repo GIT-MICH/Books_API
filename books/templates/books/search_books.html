@@ -4,6 +4,7 @@
     <form action="" method="POST">
         {% csrf_token %}
         <h3 style="color: black">Search your favorite item:</h3>
+        <br>
         <label>
             Title:
             <input name="title" type="text" value="{{ search_data.title }}">
@@ -64,7 +65,7 @@
             <td>{{ book.isbn_number }}</td>
             <td>{{ book.publicate_language }}</td>
             {% if book.image %}
-                <td><img style="" alt="image" src="{{ book.image.url }}" ></td>
+                <td><a href="{{ book.image }}"><img alt="image" src="{{ book.image.url }}"></a></td>
             {% else %}
                 <td> |Sorry, no picture| </td>
             {% endif %}

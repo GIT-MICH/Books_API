@@ -1,6 +1,7 @@
 {% extends 'books/base_with_navbar.html' %}
 {% block heading %}
     <h3>ADD BOOK:</h3>
+    <br>
 {% endblock %}
 
 {% block content %}
@@ -8,6 +9,7 @@
         {% csrf_token %}
         <div>
             {{ form.as_p }}
+            <br>
             <input style="background-color: darkorange; font-size: 16px" type="submit" value="ADD BOOK">
         </div>
     </form>

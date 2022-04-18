@@ -1,6 +1,7 @@
 {% extends 'books/base_with_navbar.html' %}
 {% block heading %}
     <h3>IMPORT BOOK FROM GOOGLEAPIS.COM:</h3>
+    <br>
 {% endblock %}
 
 {% block content %}
@@ -9,6 +10,7 @@
         <div>
             {{ form.as_p }}
             <input style="background-color: darkorange; font-size: 16px" type="submit" value="IMPORT">
+            <br><br>
         </div>
     </form>
 {% endblock %}

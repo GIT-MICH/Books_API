@@ -7,7 +7,7 @@ class Book(models.Model):
     author = models.CharField(max_length=256)
     publicate_year = models.IntegerField(null=True)
     number_of_pages = models.IntegerField(null=True)
-    isbn_number = models.CharField(max_length=13, null=True)
+    isbn_number = models.CharField(max_length=100, null=True)
     publicate_language = models.CharField(max_length=64)
     image = models.ImageField(max_length=512, blank=True, null=True)
 

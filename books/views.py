@@ -21,9 +21,16 @@ def get_books_from_googleapi(request, url='https://www.googleapis.com/books/v1/v
         book = item.get('volumeInfo')
         title = book.get('title', '-')
         authors = book.get('authors', ['no data'])[0]
-        publicate_year = book.get('publishedDate')[:4]
-        isbns = book.get('industryIdentifiers')
-        isbn = isbns[0]['identifier']
+        publishedDate = book.get('publishedDate')
+        publicate_year = int(publishedDate[:4])
+        isbns = book.get('industryIdentifiers', [])
+        isbn = None
+        for isbn in isbns:
+            if isbn['type'] == 'ISBN_10':
+                isbn = isbn['identifier']
+            elif isbn['type'] == 'ISBN_13':
+                isbn = isbn['identifier']
+        # isbn = isbns[0]['identifier']
         number_of_pages = book.get('pageCount')
         publicate_language = book.get('language')
         image = book.get('imageLinks')

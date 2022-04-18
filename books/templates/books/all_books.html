@@ -28,9 +28,9 @@
             <td>{{ book.isbn_number }}</td>
             <td>{{ book.publicate_language }}</td>
             {% if book.image %}
-                <td><img alt="image" src="{{ book.image.url }}"></td>
+                <td><a href="{{ book.image }}"><img alt="image" src="{{ book.image.url }}"></a></td>
             {% else %}
-                <td> |Sorry, no picture| </td>
+                <td>| Sorry there is no picture |</td>
             {% endif %}
             <td>
                 <br>
