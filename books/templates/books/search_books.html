@@ -18,7 +18,9 @@
         <label>
             Year from:
             <input name="year_from" type="number" step="1" min="1800" max="2050" value="{{ search_data.year_from }}" style="width: 15%">
+        </label>
             <br><br>
+        <label>
             Year to:
             <input name="year_to" type="number" step="1" min="1800" max="2050" value="{{ search_data.year_to }}" style="width: 15%"><br><br>
         </label>
@@ -59,7 +61,7 @@
     {% for book in books %}
         <tr>
             <td><strong>{{ book.title }}</strong></td>
-            <td><strong>{{ book.author }}</strong></td>
+            <td>{{ book.author }}</td>
             <td>{{ book.publicate_year }}</td>
             <td>{{ book.number_of_pages }}</td>
             <td>{{ book.isbn_number }}</td>
@@ -67,7 +69,7 @@
             {% if book.image %}
                 <td><a href="{{ book.image }}"><img alt="image" src="{{ book.image.url }}"></a></td>
             {% else %}
-                <td> |Sorry, no picture| </td>
+                <td> |Sorry, there is no picture| </td>
             {% endif %}
             <td>
                 <br>

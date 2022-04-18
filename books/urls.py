@@ -16,5 +16,4 @@ urlpatterns = [
     path('search/', SearchBooksView.as_view(), name='books-search'),
     path('import/', ImportBooksFromApiView.as_view(), name='books-import'),
     path('book_api/', BookListView.as_view(), name='book-api'),
-
 ]

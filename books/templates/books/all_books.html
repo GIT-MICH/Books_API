@@ -30,7 +30,7 @@
             {% if book.image %}
                 <td><a href="{{ book.image }}"><img alt="image" src="{{ book.image.url }}"></a></td>
             {% else %}
-                <td>| Sorry there is no picture |</td>
+                <td>| Sorry, there is no picture |</td>
             {% endif %}
             <td>
                 <br>
@@ -44,33 +44,33 @@
     </tbody>
 
     <tfoot>
-    <tr>
-        <th colspan="8" style="background-color: #DDDDDD; color: darkorange">
-            <!--Pagination-->
-        <div>
-            <div>
-                <span>
-                {% if books.has_previous %}
-                 <a href="?page={{ books.previous_page_number }}" style="color: black">< previous </a>
-                {% endif %}
-                <span><big>
-                    {% for i in books.paginator.page_range %}
-                        {% if books.number == i %}
-                        <label class="active"><span><big>  {{ i }}  </big><span class="sr-only"></span></span></label>
-                        {% else %}
-                            <label><a href="?page={{ i }}" style="color: black">{{ i }}</a></label>
+        <tr>
+            <th colspan="8" style="background-color: #DDDDDD; color: darkorange">
+        <!--Pagination-->
+                <div>
+                    <div>
+                        <span>
+                        {% if books.has_previous %}
+                         <a href="?page={{ books.previous_page_number }}" style="color: black">< previous </a>
                         {% endif %}
-                    {% endfor %}
-                </big></span>
-                {% if books.has_next %}
-                    <a href="?page={{ books.next_page_number }}" style="color: black"> next ></a>
-                {% endif %}
-                </span>
-            </div>
-        </div>
-            <!--end of Pagination-->
-        </th>
-    </tr>
+                        <span><big>
+                            {% for i in books.paginator.page_range %}
+                                {% if books.number == i %}
+                                <label class="active"><span><big>  {{ i }}  </big><span class="sr-only"></span></span></label>
+                                {% else %}
+                                <label><a href="?page={{ i }}" style="color: black">{{ i }}</a></label>
+                                {% endif %}
+                            {% endfor %}
+                        </big></span>
+                        {% if books.has_next %}
+                            <a href="?page={{ books.next_page_number }}" style="color: black"> next ></a>
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+        <!--end of Pagination-->
+            </th>
+        </tr>
     </tfoot>
 </table>
 {% endblock %}

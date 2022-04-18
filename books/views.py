@@ -30,7 +30,6 @@ def get_books_from_googleapi(request, url='https://www.googleapis.com/books/v1/v
                 isbn = isbn['identifier']
             elif isbn['type'] == 'ISBN_13':
                 isbn = isbn['identifier']
-        # isbn = isbns[0]['identifier']
         number_of_pages = book.get('pageCount')
         publicate_language = book.get('language')
         image = book.get('imageLinks')
