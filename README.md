@@ -4,14 +4,25 @@ Project idea: The purpose of the created application is manage collection of boo
 
 ** APP SUMMARY **
 
-MODELS: 3.
+MODELS: 1.
 
 Books
-Author
-Language
 
-FORMS:
+FORMS: 3.
 
-VIEWS:
+BookForm
+BookModifyForm
+ImportBooksFromApiForm
 
-TESTS:
+
+VIEWS: 7.
+
+    'all/', AllBooksView;
+    'add/', AddBookView;
+    'delete/<int:id>/', DeleteBookView;
+    'modify/<int:id>/', ModifyBookView;
+    'search/', SearchBooksView;
+    'import/', ImportBooksFromApiView;
+    'book_api/', BookListView;
+
+TESTS: 11.
